@@ -1,6 +1,6 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
-import fetchCountries from './fetchCountries';
+import API from './fetchCountries';
 
 var debounce = require('lodash.debounce');
 
@@ -19,7 +19,7 @@ function onSearch(e) {
     clearCountrySearch();
     return;
   }
-  fetchCountries(searchCountry.trim())
+  API.fetchCountries(searchCountry.trim())
     .then(renderCountryCard)
     .catch(onFetchError);
 }
@@ -67,7 +67,7 @@ function clearCountrySearch() {
   refs.countryContainer.innerHTML = '';
 }
 
-function onFetchError() {
+function onFetchError(error) {
   Notiflix.Notify.failure('Oops, there is no country with that name', {
     clickToClose: true,
   });
