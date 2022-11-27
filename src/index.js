@@ -7,7 +7,7 @@ var debounce = require('lodash.debounce');
 const DEBOUNCE_DELAY = 300;
 const refs = {
   searchInput: document.querySelector('#search-box'),
-  countryContainer: document.querySelector('.country-list'),
+  countryList: document.querySelector('.country-list'),
   countryInfo: document.querySelector('.country-info'),
 };
 
@@ -34,8 +34,9 @@ function renderCountryCard(countries) {
   } else if (countries.length >= 2 && countries.length <= 10) {
     markup = countries
       .map(({ name, flags }) => {
-        return `<li class='country-list__item'>
-      <img src="${flags.svg}" alt="${name.official}" width='40'>
+        return `
+        <li class='country-list__item'>
+      <img src="${flags.svg}" alt="${name.official}" width="40">
       ${name.official}</li>`;
       })
       .join('');
@@ -43,11 +44,12 @@ function renderCountryCard(countries) {
     markup = countries
       .map(({ name, flags, capital, population, languages }) => {
         return `<div class="country-info">
-        <img src="${flags.svg}" alt="${name.official}" width="40" class='img'/>
-        <h2 class="country-info__country-name">${name.official}</h2>
-      </div>
+        <img src="${flags.svg}" alt="${
+          name.official
+        }" width="40" height="25"  class="img-flag"/>
+        <h2 class="country-info__country-name">${name.official}</h2> </div>
       <ul class="country-info__list">
-        <li class="country-info__list-item">
+        <li class="country-info__item">
           Capital: <span class="country-info__item-name">${capital}</span>
         </li>
         <li class="country-info__item">
@@ -60,11 +62,11 @@ function renderCountryCard(countries) {
       })
       .join('');
   }
-  refs.countryContainer.innerHTML = markup;
+  refs.countryList.innerHTML = markup;
 }
 
 function clearCountrySearch() {
-  refs.countryContainer.innerHTML = '';
+  refs.countryList.innerHTML = '';
 }
 
 function onFetchError(error) {
